@@ -38,7 +38,7 @@ It was a great learning experience, especially for **my problem-solving skills**
 
 ### **## 🚀 Demo**
 
-👉 [Click here to test the Streamlit live app](https://level-5-my-analysis-report.streamlit.app/)
+👉 [Click here to test the Streamlit live app](https://live-report-generator.streamlit.app/)
 
 ---
 
