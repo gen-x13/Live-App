@@ -29,7 +29,10 @@ if "visibility" not in st.session_state:
 upload_file = None # Initialization
 
 # CSS Background
-with open("./files/wave.css") as f:
+import os
+
+css_path = os.path.join(os.path.dirname(__file__), 'files', 'wave.css')
+with open(css_path) as f:
     css = f.read()
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
