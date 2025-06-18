@@ -1,6 +1,6 @@
 ## Live-App 💻
 
-### **🏆 Project : Report Generator **
+### **🏆 Project : Report Generator**
 
 - **📌 Description:**  
   A Streamlit Live Application delivering a generate report from **your clean CSV file** in one click.  
