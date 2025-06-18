@@ -155,12 +155,11 @@ elif selected == "Tutorial":
 
     # Search video path
     base_path = os.path.dirname(__file__)
-    
     vid_path = os.path.join(base_path, 'assets', 'tuto.mp4')
 
-    # Video reading
-    video_file = vid_path
-    video_bytes = video_file.read()
+    # Video reading in binary
+    with open(vid_path, 'rb') as f: 
+    video_bytes = f.read()
 
     # Showing video
     st.video(video_bytes)
