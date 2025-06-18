@@ -48,12 +48,21 @@ with st.sidebar:
         default_index=0
         )
 
-# Logo
+import os
+
+# Get the absolute path of the current folder (where main.py is located)
+base_path = os.path.dirname(__file__)
+
+# Building paths to images
+logo_path = os.path.join(base_path, 'assets', 'genxcodeverso.png')
+icon_path = os.path.join(base_path, 'assets', 'genxcode.png')
+
+# Apply paths
 st.logo(
-    './assets/genxcodeverso.png',
+    logo_path,
     size='large',
     link=None,
-    icon_image='./assets/genxcode.png',
+    icon_image=icon_path,
 )
 
 # Home Page
