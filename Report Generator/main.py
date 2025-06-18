@@ -159,7 +159,7 @@ elif selected == "Tutorial":
 
     # Video reading in binary
     with open(vid_path, 'rb') as f: 
-    video_bytes = f.read()
+        video_bytes = f.read()
 
     # Showing video
     st.video(video_bytes)
