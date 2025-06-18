@@ -160,8 +160,6 @@ elif selected == "Tutorial":
     # Video reading
     video_file = open(vid_path, "rb")
     video_bytes = video_file.read()
-    video_bytes = f.read()
-
     # Showing video
     st.video(video_bytes)
     
