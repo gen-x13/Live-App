@@ -153,15 +153,8 @@ elif selected == "Tutorial":
     
     st.divider()
 
-    # Search video path
-    base_path = os.path.dirname(__file__)
-    vid_path = os.path.join(base_path, 'assets', 'tuto.mp4')
-
-    # Video reading
-    video_file = open(vid_path, "rb")
-    video_bytes = video_file.read()
-    # Showing video
-    st.video(video_bytes)
+    # Video
+    st.video("https://youtu.be/91QuvJIiY0w")
     
     st.divider()
     
