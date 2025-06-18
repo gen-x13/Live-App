@@ -1,0 +1,6 @@
+pandas 
+kaleido
+streamlit 
+plotly
+reportlab 
+streamlit-option-menu
