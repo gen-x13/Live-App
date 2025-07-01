@@ -1,9 +1,9 @@
-## Live-App 💻
+## SolveReport App 💻
 
-### **🏆 Project : Report Generator**
+### **🏆 Project : SolveReport**
 
 - **📌 Description:**  
-  A Streamlit Live Application delivering a generate report from **your clean CSV file** in one click.  
+  A Streamlit Application delivering a generate report from **your clean CSV file** in one click.  
   My application provides only two languages : French and English.
 
 - **🛠 Tech Stack:** Python, Pandas, Streamlit, Reportlab, Plotly.  
@@ -53,6 +53,24 @@ pip install pandas streamlit reportlab plotly
 ## 📝 License
 
 This project is licensed under the MIT License — see the [LICENSE](./LICENSE) file for details.
+
+---
+## 📢 Versions
+
+**Version 1.0** | *02/07/25* :
+
+◼ Enhanced the generated report’s design
+◼ Improved the GUI
+◼ Added a new feature : Template selection
+◼ Added a file uploader and data cache cleaner
+◼ Added a new graph
+◼ Added logos
+◼ New tutorial video
+◼ Rewrited the tutorial
+◼ Customized the buttons
+◼ Language selection for a few pages
+◼ Replaced some functions
+◼ Sliders and slicing data
 
 ---
 
