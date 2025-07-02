@@ -1,5 +1,5 @@
 pandas 
-kaleido
+kaleido==0.2.1
 streamlit 
 plotly
 reportlab 
