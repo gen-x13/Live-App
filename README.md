@@ -6,25 +6,11 @@
   A Streamlit Application delivering a generate report from **your clean CSV file** in one click.  
   My application provides only two languages : French and English.
 
-- **🛠 Tech Stack:** Python, Pandas, Streamlit, Reportlab, Plotly.  
-- **⏳ Time to complete:** 20 days.
+- **🛠 Tech Stack:** Python, Pandas, Streamlit, Reportlab, Plotly.
 
 ---
 ⚠️ Note: This app might take a few seconds to load if it's been inactive — please be patient while it wakes up!
 ⚠️ Don't forget: errors can happen. Report them to me via my social networks.
----
-
-### **💭 My thoughts on this project:** 
-This is my **first Streamlit Live Application**. I'm proud of my evolution.  
-- It took me **10 days** to build the first version.  
-- I spent **20 days in total** learning and battling with my perfectionnism and reportlab's documentation.
-
-It was a great learning experience, especially for **my problem-solving skills**.
-
-💡 My strengths: Self-taught mindset and curiosity.
-
-🚀 Areas for improvement: Code and visualization optimization, and my perfectionnism.
-
 ---
 
 "More advanced versions will come soon... Stay tuned."
