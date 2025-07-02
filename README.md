@@ -10,6 +10,7 @@
 
 ---
 ⚠️ Note: This app might take a few seconds to load if it's been inactive — please be patient while it wakes up!
+
 ⚠️ Don't forget: errors can happen. Report them to me via my social networks.
 ---
 
