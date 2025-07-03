@@ -97,9 +97,6 @@ if selected == "Home":
     if add_radio == "🇬🇧":
         
         # English Version
-
-        # Au début de votre app
-        st.write(f"👥 You are the visitor #{len(st.session_state.get('visitors', []))+1}")
         
         st.title("Your power, your report, your solution !")
         
@@ -126,8 +123,6 @@ if selected == "Home":
     else :    
        
         # French Version
-        # Au début de votre app
-        st.write(f"👥 Vous êtes le visiteur #{len(st.session_state.get('visitors', []))+1}")
         
         st.title("Votre pouvoir, votre rapport, votre solution !")
         
