@@ -60,6 +60,15 @@ This project is licensed under the MIT License — see the [LICENSE](./LICENSE) 
 ◼ Replaced some functions
 ◼ Sliders and slicing data
 
+**Version 1.1** | *08/08/25* :
+
+◼ Replace French & English page by Report page
+◼ Added language selection to all the pages
+◼ Added a new feature : Template selection
+◼ Improved the data cache cleaner
+◼ Added a template teasing the Pro Version
+◼ Bilingual Menu
+
 ---
 
 ### **💜 A Reminder:**
