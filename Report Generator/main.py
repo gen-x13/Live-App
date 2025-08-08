@@ -265,7 +265,16 @@ with st.sidebar:
                 # Auto-rerun après un délai pour montrer l'état final
                 time.sleep(10)
                 st.rerun()
-        
+
+# Delimitation 
+left, right = st.columns([3, 1])
+
+# Language Selection
+exp = right.radio(
+        "**Choose your language...**",
+        ("🇬🇧", "🇫🇷"),
+        horizontal = st.session_state.horizontal
+    )
 
 # Home Page
 if selected == "Home":
@@ -1495,4 +1504,5 @@ if upload_file is not None:
     
 
      
+
 
