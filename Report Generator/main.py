@@ -265,7 +265,7 @@ with st.sidebar:
                 st.rerun()
 
 # Home Page
-if selected == "Home":
+if selected == ["Home", "Accueil"]:
        
     if exp == "🇬🇧":
         
@@ -344,7 +344,7 @@ if selected == "Home":
 ''', height=200)
 
 
-elif selected == "Tutorial":
+elif selected == ["Tutorial", "Tutoriel"]:
     if exp == "🇬🇧":
         
         st.title("Tutorial")
@@ -497,7 +497,7 @@ elif selected == "Tutorial":
 
 # Report Page
 
-elif selected == "Report":
+elif selected == ["Report", "Rapport"]:
    
     if exp == "🇬🇧": 
         
@@ -538,7 +538,7 @@ elif selected == "Report":
 
     
 # Purchase Page
-elif selected == "Purchase":
+elif selected == ["Purchase", "Achat"]:
 
     if exp == "🇬🇧":
     
@@ -1492,6 +1492,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
