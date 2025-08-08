@@ -1,15 +1,24 @@
-""" #genxcode - Report Generator """
+""" #genxcode - Report Generator (08/08/25)"""
 
 # Module's Importation
 
+# Pandas
 import pandas as pd
 
+# Time
+import time
+
+# IO
 import io
 import os
 from io import BytesIO
+
+# Plotly
 import plotly.express as px
 import plotly.io as pio
 
+# PIL
+from PIL import Image as img, ImageFilter
 
 #Reportlab
 from reportlab.pdfgen import canvas
@@ -35,7 +44,8 @@ if "horizontal" not in st.session_state:
 if "uploader_key" not in st.session_state:
     st.session_state.uploader_key = 0
 
-# Define
+
+# Define upload_file variable
 upload_file = None # Initialization
 
 # CSS Background
@@ -48,7 +58,26 @@ st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 # Get the absolute path of the current folder (where main.py is located)
 base_path = os.path.dirname(__file__)
 
-# Logo
+# Template Paths
+
+# Building paths to screenshots of templates
+normsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'norm_scsh.png')
+avsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'av_scsh.png')
+avwssch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'avws_scsh.png')
+apsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'ap_scsh.png')
+
+# Blurred image
+image = img.open(apsch_path)
+
+# Blur on the picture
+blurred_image = image.filter(ImageFilter.GaussianBlur(radius=10)) # With PIL
+
+# Building paths to templates
+av_path = os.path.join(base_path, 'assets', 'Templates', 'artic_vision.png')
+avws_path = os.path.join(base_path, 'assets', 'Templates', 'artic_vision_white_shape.png') 
+
+
+# Logo Path
 
 # Building paths to images
 logo_path = os.path.join(base_path, 'assets', 'Icons', 'genxcodeverso.png')
@@ -62,50 +91,196 @@ st.logo(
     icon_image=icon_path,
 )
 
-# Menu
+# Delimitation 
+left, right = st.columns([3, 1])
 
+# Language Selection
+exp = right.radio(
+        "**Choose your language...**",
+        ("🇬🇧", "🇫🇷"),
+        horizontal = st.session_state.horizontal
+    )
+
+
+
+# Menu
 with st.sidebar:
     
-    selected=option_menu(
-        menu_title="Menu",
-        options = ["Home", "Tutorial","Français", "English", "Purchase", "Test"],
-        icons = ["house-door", "cast", "clipboard2-data", "clipboard2-data", "shop", "bricks"],
-        menu_icon="menu-button-wide",
-        default_index=0
-        )
+    if exp == "🇫🇷":
     
-    
-    st.button("Clear all data.", on_click=st.cache_resource.clear())
-    
-    logo = st.image(icon_path) #display my logo
-    
+        selected=option_menu(
+            menu_title="Menu",
+            options = ["Accueil", "Tutoriel", "Rapport", "Achat"],
+            icons = ["house-door", "cast", "clipboard2-data", "shop"],
+            menu_icon="menu-button-wide",
+            default_index=0
+            )
+        
+        # Affichage des statistiques avant nettoyage (pour transparence)
+        with st.expander("📊 État actuel des données"):
+            session_keys = len(st.session_state.keys())
+            st.write(f"🔑 Clés en session : {session_keys}")
+            
+            if session_keys > 0:
+                st.write("**Clés présentes :**")
+                for key in st.session_state.keys():
+                    # Afficher les clés sans exposer de données sensibles
+                    key_type = type(st.session_state[key]).__name__
+                    st.write(f"- `{key}`")
+            
+            # Estimation de la taille des caches
+            st.write("📦 Caches Streamlit actifs")
+        
+        # Bouton avec confirmation et feedback détaillé
+        if st.button("🗑️ Clear all data", type="secondary"):
+            if 'confirm_clear' not in st.session_state:
+                st.session_state.confirm_clear = True
+                st.warning("⚠️ **Confirmation requise**\n\nCela supprimera :\n- Toutes les variables de session\n- Le cache des données\n- Le cache des ressources\n\nCliquez à nouveau pour confirmer")
+            else:
+                # Collecte des informations avant suppression
+                keys_before = list(st.session_state.keys())
+                keys_count_before = len(keys_before)
+                
+                # Nettoyage avec feedback en temps réel
+                with st.spinner("🧹 Nettoyage en cours..."):
+                    time.sleep(0.5)  # Pour que l'utilisateur voie le spinner
+                    
+                    # 1. Suppression des clés de session
+                    keys_deleted = []
+                    for key in keys_before:
+                        if key != 'confirm_clear':  # On garde temporairement pour le feedback
+                            keys_deleted.append(key)
+                            del st.session_state[key]
+                    
+                    # 2. Nettoyage des caches
+                    st.cache_data.clear()
+                    st.cache_resource.clear()
+                    
+                    # 3. Suppression de la clé de confirmation
+                    if 'confirm_clear' in st.session_state:
+                        del st.session_state['confirm_clear']
+                
+                # Rapport détaillé du nettoyage
+                st.success("✅ **Nettoyage terminé avec succès !**")
+                
+                with st.expander("📋 Rapport de nettoyage", expanded=True):
+                    st.write(f"**🔑 Variables de session supprimées : {len(keys_deleted)}**")
+                    if keys_deleted:
+                        for key in keys_deleted:
+                            st.write(f"✓ `{key}`")
+                    
+                    st.write("**📦 Caches nettoyés :**")
+                    st.write("✓ Cache des données")
+                    st.write("✓ Cache des ressources")
+                    
+                    # Vérification post-nettoyage
+                    current_keys = len(st.session_state.keys())
+                    st.write(f"**🎯 État final : {current_keys} clés restantes**")
+                    
+                    if current_keys == 0:
+                        st.success("🎉 Session complètement nettoyée !")
+                    else:
+                        st.info(f"ℹ️ {current_keys} clés système conservées")
+                
+                # Auto-rerun après un délai pour montrer l'état final
+                time.sleep(10)
+                st.rerun()
+
+    elif exp == "🇬🇧":
+        
+        selected=option_menu(
+            menu_title="Menu",
+            options = ["Home", "Tutorial","Report", "Purchase"],
+            icons = ["house-door", "cast", "clipboard2-data", "shop"],
+            menu_icon="menu-button-wide",
+            default_index=0
+            )
+        
+        # Affichage des statistiques avant nettoyage (pour transparence)
+        with st.expander("📊 Current data status"):
+            session_keys = len(st.session_state.keys())
+            st.write(f"🔑 Session keys : {session_keys}")
+            
+            if session_keys > 0:
+                st.write("**Present keys :**")
+                for key in st.session_state.keys():
+                    # Afficher les clés sans exposer de données sensibles
+                    key_type = type(st.session_state[key]).__name__
+                    st.write(f"- `{key}`")
+            
+            # Estimation de la taille des caches
+            st.write("📦 Active Streamlit caches")
+        
+        # Bouton avec confirmation et feedback détaillé
+        if st.button("🗑️ Clear all data", type="secondary"):
+            if 'confirm_clear' not in st.session_state:
+                st.session_state.confirm_clear = True
+                st.warning("⚠️ **Confirmation required**\n\nThis will delete:\n- All session variables\n- Data cache\n- Resource cache\n\nClick again to confirm")
+            else:
+                # Collecte des informations avant suppression
+                keys_before = list(st.session_state.keys())
+                keys_count_before = len(keys_before)
+                
+                # Nettoyage avec feedback en temps réel
+                with st.spinner("🧹 Cleaning in progress..."):
+                    time.sleep(0.5)  # Pour que l'utilisateur voie le spinner
+                    
+                    # 1. Suppression des clés de session
+                    keys_deleted = []
+                    for key in keys_before:
+                        if key != 'confirm_clear':  # On garde temporairement pour le feedback
+                            keys_deleted.append(key)
+                            del st.session_state[key]
+                    
+                    # 2. Nettoyage des caches
+                    st.cache_data.clear()
+                    st.cache_resource.clear()
+                    
+                    # 3. Suppression de la clé de confirmation
+                    if 'confirm_clear' in st.session_state:
+                        del st.session_state['confirm_clear']
+                
+                # Rapport détaillé du nettoyage
+                st.success("✅ **Cleaning successfully completed!**")
+                
+                with st.expander("📋 Cleaning report", expanded=True):
+                    st.write(f"**🔑 Session variables deleted : {len(keys_deleted)}**")
+                    if keys_deleted:
+                        for key in keys_deleted:
+                            st.write(f"✓ `{key}`")
+                    
+                    st.write("**📦 Cleaned caches :**")
+                    st.write("✓ Data cache")
+                    st.write("✓ Resource cache")
+                    
+                    # Vérification post-nettoyage
+                    current_keys = len(st.session_state.keys())
+                    st.write(f"**🎯 Final status: {current_keys} remaining keys**")
+                    
+                    if current_keys == 0:
+                        st.success("🎉 Session completely cleaned up!")
+                    else:
+                        st.info(f"ℹ️ {current_keys} system keys stored")
+                
+                # Auto-rerun après un délai pour montrer l'état final
+                time.sleep(10)
+                st.rerun()
+        
+
 # Home Page
-
 if selected == "Home":
-    
-    left, right = st.columns([3, 1])
-    
-    
-    add_radio = right.radio(
-            "**Choose your language...**",
-            ("🇬🇧", "🇫🇷"),
-            horizontal = st.session_state.horizontal
-        )
-
-    
-    
-    if add_radio == "🇬🇧":
+       
+    if exp == "🇬🇧":
         
         # English Version
         
-        st.title("Your power, your report, your solution !")
+        st.title("SolveReport Free")
         
-        st.subheader("SolveReport Application")
+        st.subheader("Your power, your report, your solution !")
         st.text("")
         
-        st.markdown("This site has been designed to provide you with a ***complete*** and ***automated*** report of your weekly sales.")
-        st.markdown("More time to use it. More control over it. And no trail of data.")
-        st.markdown("Inclusive and intuitive, anyone can use it like a profesionnal.")
+        st.markdown("This site has been designed to provide you with a ***complete*** and ***automated*** of the data you upload.")
+        st.markdown("More time. More control. Inclusive and intuitive, anyone can use it like a profesionnal.")
         
         st.subheader("**How does it work ?**")
         st.caption("It's recommended to watch entirely the tutorial before any actions or report building.")
@@ -120,19 +295,17 @@ if selected == "Home":
         st.markdown("***Follow me on socials and stay conected !***")
         
         
-    else :    
+    elif exp == "🇫🇷":    
        
         # French Version
         
-        st.title("Votre pouvoir, votre rapport, votre solution !")
+        st.title("SolveReport Gratuit")
         
-        st.subheader("Application SolveReport")
+        st.subheader("Votre pouvoir, votre rapport, votre solution !")
         st.text("")
         
-        st.markdown("Ce site a été conçu pour vous fournir une analyse ***complète*** et ***automatisée*** de vos ventes hebdomadaires.")
-        st.markdown("Plus de temps pour l'utiliser. Plus de contrôle. Et aucune trace de vos données.")
-        st.markdown("Inclusif et intuitif, tout le monde peut l'utiliser comme un professionnel.")
-        
+        st.markdown("Ce site a été conçu pour vous fournir une analyse ***complète*** et ***automatisée*** des données que vous téléchargez.")
+        st.markdown("Plus de temps pour l'utiliser. Plus de contrôle. Inclusif et intuitif, tout le monde peut l'utiliser comme un professionnel.")
         st.subheader("**Comment ça marche ?**")
         st.caption("Il est recommandé de visionner entièrement le tutoriel avant toute action ou construction de rapport.")
         st.markdown("Téléchargez votre fichier CSV et vous recevrez en quelques instants un rapport clair et détaillé au format PDF, prêt à être partagé ou archivé, avec une interface bilingue pour s'adapter à votre public.")
@@ -151,7 +324,6 @@ if selected == "Home":
     
     
     # Logos
-    
     components.html('''
 <div style="display: flex; justify-content: center; gap: 40px; align-items: center;">
   <a href="https://github.com/gen-x13" target="_blank">
@@ -176,20 +348,8 @@ if selected == "Home":
 
 
 elif selected == "Tutorial":
-    
-    left, right = st.columns([3, 1])
-    
-    
-    exp = right.radio(
-            "**Choose your language...**",
-            ("🇬🇧", "🇫🇷"),
-            horizontal = st.session_state.horizontal
-        )
-    
     if exp == "🇬🇧":
         
-        
-    
         st.title("Tutorial")
         
         st.header("How to use this Application ?")
@@ -261,7 +421,7 @@ elif selected == "Tutorial":
             st.markdown("All you have to do is open it.")
             st.caption("⚠ Don't forget: errors can happen. Report them to me via my social networks.")
             
-    else:
+    elif exp == "🇫🇷":
         
         st.title("Tutoriel")
         
@@ -338,127 +498,74 @@ elif selected == "Tutorial":
         
 
 
-# French Visualization Page
+# Report Page
 
-elif selected == "Français":
+elif selected == "Report":
+   
+    if exp == "🇬🇧": 
+        
+        st.title("Analysis of your sales")
+        st.text("")
+           
+        st.header('Import your CSV file, below :')
+        st.markdown('Be sure to delete missing values and duplicates before continuing.')
+        st.caption('The PRO version, coming soon, will do it for you in 1 click.')
+        
+        st.text("")
+
+        upload_file = st.file_uploader("Drag and drop one file here :",
+                                       type="csv", 
+                                       accept_multiple_files=False,
+                                       on_change= lambda: analyze(upload_file),  
+                                       label_visibility="visible",
+                                       key="Do not upload any sensitive information.")
+    
+    elif exp == "🇫🇷": 
+    
+        st.title("Analyse de vos ventes")
+        st.text("")
+    
+        st.header('Importez votre fichier CSV, ci-dessous :')
+        st.markdown('Veillez à supprimer les valeurs manquantes et les doublons avant de continuer.')
+        st.caption('La version PRO, qui sortira prochainement, le fera pour vous en 1 clic.')
+        
+        st.text("")
+    
+        upload_file = st.file_uploader("Glisser et déposer un fichier ici :",
+                                       type="csv", 
+                                       accept_multiple_files=False, 
+                                       on_change= lambda: analyze(upload_file),  
+                                       label_visibility="visible",
+                                       key="Ne téléchargez pas d'informations sensibles.")
     
 
-    st.title("Analyse de vos ventes")
-    st.text("")
-
-    st.header('Importez votre fichier CSV, ci-dessous :')
-    st.markdown('Veillez à supprimer les valeurs manquantes et les doublons avant de continuer.')
-    st.caption('La version PRO, qui sortira prochainement, le fera pour vous en 1 clic.')
     
-    st.text("")
-
-    upload_file = st.file_uploader("Glisser et déposer un fichier ici :",
-                                   type="csv", 
-                                   accept_multiple_files=False, 
-                                   on_change= lambda: analyze(upload_file),  
-                                   label_visibility="visible")
-    
-
-    
-# English Visualization Page
-
-elif selected == "English":
-    
-    
-    st.title("Analysis of your sales")
-    st.text("")
-       
-    st.header('Import your CSV file, below :')
-    st.markdown('Be sure to delete missing values and duplicates before continuing.')
-    st.caption('The PRO version, coming soon, will do it for you in 1 click.')
-    
-    st.text("")
-
-    upload_file = st.file_uploader("Drag and drop one file here :",
-                                   type="csv", 
-                                   accept_multiple_files=False,
-                                   on_change= lambda: analyze(upload_file),  
-                                   label_visibility="visible")
-    
-# Buying PRO Version
+# Purchase Page
 elif selected == "Purchase":
-    
-    left, right = st.columns([3, 1])
-    
-    
-    pur = right.radio(
-            "**Choose your language...**",
-            ("🇬🇧", "🇫🇷"),
-            horizontal = st.session_state.horizontal
-        )
-    
-    if pur == "🇬🇧":
-    
+
+    if exp == "🇬🇧":
     
         st.title("Thank you for testing this free version")
         st.text("")
            
-        st.header('Insight and feedback about this free version are welcomed.')
-        st.caption('The PRO version will come soon.')
+        st.header('Insight and feedback about this free version are welcomed on my socials.')
+        st.caption('The PRO beta version will come soon.')
         
         st.text("")
     
-    else:
+    elif exp == "🇫🇷":
         
         st.title("Merci d'avoir testé la version gratuite.")
         st.text("")
            
-        st.header('Les avis et les commentaires sur cette version gratuite sont les bienvenus.')
-        st.caption('La version PRO arrive bientôt.')
+        st.header('Les avis et les commentaires sur cette version gratuite sont les bienvenus sur mes réseaux sociaux.')
+        st.caption('La version bêta PRO arrive bientôt.')
         
         st.text("")
 
-elif selected == "Test":
-    
-    left, right = st.columns([3, 1])
-    
-    
-    tes = right.radio(
-            "**Choose your language...**",
-            ("🇬🇧", "🇫🇷"),
-            horizontal = st.session_state.horizontal
-        )
-    
-    if tes == "🇬🇧":
-    
-        st.header("Where all new features will be tested.")
-        st.markdown("This page is dedicated to test features I'll implement later.")
-        st.markdown("Feel free to let a review or vote if you're against or not.")
 
-    else:
-        
-        st.header("C'est là que toutes les nouvelles fonctionnalités seront testées.")
-        st.markdown("Cette page est dédiée aux fonctionnalités à tester, que je mettrai en œuvre prochainement.")
-        st.markdown("N'hésitez pas à laisser un commentaire ou voter si vous êtes contre ou non.")
-
-        
-    # Stars Feedback
-    
-    sentiment_mapping = ["one", "two", "three", "four", "five"]
-    selected = st.feedback("stars")
-    
-    if selected is not None:
-        
-        if tes == "🇬🇧":
-        
-            st.markdown(f"You've sent {sentiment_mapping[selected]} star(s).")
-            
-        else:
-            
-            st.markdown(f"Vous avez envoyé {sentiment_mapping[selected]} étoile(s).")
-            
-
-        
-    
 # Analysis Function
-
 def analyze(upload_file):
-    
     
     if upload_file is not None:
         
@@ -466,22 +573,21 @@ def analyze(upload_file):
         
         st.session_state.disabled = "visible"
         
-        if selected == "Français":
+        if exp == "🇫🇷":
             
             st.info('Votre fichier a été importé avec succès.', icon="ℹ️")
             
-        else:
+        elif exp == "🇬🇧": 
             
             st.info('Your file had been imported successfully', icon="ℹ️")
             
         
         st.dataframe(df)
         
+                             ### REPORT PART ###    
         
-                             ### FRENCH PART ###    
         
-        
-        if selected == "Français":
+        if exp == "🇫🇷":
             
             col = st.selectbox(
                                 "Choisissez la colonne :", 
@@ -566,19 +672,13 @@ def analyze(upload_file):
                     
                     st.metric(f"Moyenne de {col}", valeur)
 
-                    
-                
             elif col:
                 
                 analyses_fr = {
                     
                         "Moyenne": df[col].mean,
-                        "Médiane": df[col].median,
-                        "Écart-type": df[col].std,
-                        "Variance": df[col].var,
                         "Minimum": df[col].min,
                         "Maximum": df[col].max,
-                        "Somme": df[col].sum
                         
                         }
                 
@@ -592,7 +692,7 @@ def analyze(upload_file):
                 if choix_analyse is not None:
                     
                     choix_type = st.selectbox("Choisissez un type de graphique :",
-                                              ["Ligne", "Barre", "Points", "Histogramme"],
+                                              ["Ligne", "Barre", "Points"],
                                               index=None,
                                               placeholder= "Sélectionnez un type...",
                                               label_visibility=st.session_state.visibility)
@@ -636,17 +736,7 @@ def analyze(upload_file):
                         st.plotly_chart(point)
                         
                         m_point = st.metric(f"{choix_analyse} de {col}", valeur)
-                    
-                    elif choix_type == "Histogramme":
-                        
-                        st.write(title_col_text)
-                        
-                        histo = px.histogram(df[start:end], y=col)
-                        
-                        st.plotly_chart(histo)
-                        
-                        m_histo = st.metric(f"{choix_analyse} de {col}", valeur)
-                        
+                 
             
             class Graphique:
                 
@@ -717,9 +807,6 @@ def analyze(upload_file):
                     elif choix_type == "Points":
                         dico["point"] = (title_col_text, point, col_text)
                     
-                    elif choix_type == "Histogramme":
-                        dico["histogramme"] = (title_col_text, histo, col_text)
-            
                     ajouter_graphique(dico, nom_graph)
             
                 else:
@@ -744,16 +831,11 @@ def analyze(upload_file):
             st.subheader("Choisissez votre template")
             
             template_type = st.radio(
-                    "Sélectionnez votre template",
-                    ["Normal", "Artic Vision", "Artic Vision WS"],
+                    "",
+                    ["Normal", "Artic Vision", "Artic Vision WS", "Astral Power 🔒"],
                     index=None,
                     horizontal = st.session_state.horizontal,
                     )
-            
-            # Path to screenshot template
-            normsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'norm_scsh.png')
-            avsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'av_scsh.png')
-            avwssch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'avws_scsh.png')
             
             if template_type == "Normal":
                 
@@ -766,6 +848,13 @@ def analyze(upload_file):
             elif template_type == "Artic Vision WS":
                 
                 st.image(avwssch_path) 
+                
+            elif template_type == "Astral Power 🔒":
+                
+                # Blurred Picture
+                st.image(blurred_image)
+                
+                st.warning("Disponible dans la version Pro.")
                 
             else:
                 st.warning("Sélectionnez un template.")
@@ -837,9 +926,6 @@ def analyze(upload_file):
                     if l.nom in selection:
                         
                         elements += paragraphe(l)
-                
-                av_path = os.path.join(base_path, 'assets', 'Templates', 'artic_vision.png')
-                avws_path = os.path.join(base_path, 'assets', 'Templates', 'artic_vision_white_shape.png') 
                 
                 # Normal Template
                 if template_type == "Normal":
@@ -958,7 +1044,7 @@ def analyze(upload_file):
                              ### ENGLISH PART ###       
                 
         
-        elif selected == "English":
+        elif exp == "🇬🇧": 
            
             col = st.selectbox(
                                 "Choose column:", 
@@ -1031,12 +1117,8 @@ def analyze(upload_file):
                 analysis_en = {
                     
                         "Mean": df[col].mean,
-                        "Median": df[col].median,
-                        "Standard deviation": df[col].std,
-                        "Variance": df[col].var,
                         "Minimum": df[col].min,
                         "Maximum": df[col].max,
-                        "Sum": df[col].sum,
                         
                         }
                 
@@ -1049,7 +1131,7 @@ def analyze(upload_file):
                 if choice_analysis is not None:
                     
                     choice_type = st.selectbox("Choose a chart type :",
-                                              ["Line", "Bar", "Scatter", "Histogram"],
+                                              ["Line", "Bar", "Scatter"],
                                               index=None,
                                               placeholder= "Select a type...",
                                               label_visibility=st.session_state.visibility)
@@ -1085,15 +1167,7 @@ def analyze(upload_file):
                         st.plotly_chart(scatter)
                         m_scatter = st.metric(f"{choice_analysis} of {col}", value)
                         
-                    elif choice_type == "Histogram":
-                    
-                        
-                        histo = px.histogram(df[start:end], y=col)
-                        
-                        st.plotly_chart(histo)
-                        
-                        m_histo = st.metric(f"{choice_analysis} of {col}", value)
-                        
+                   
             st.text("")
             
             class Graphic:
@@ -1165,9 +1239,6 @@ def analyze(upload_file):
                     elif choice_type == "Scatter":
                         dico["scatter"] = (title_col, scatter, col_text)
                     
-                    elif choix_type == "Histogram":
-                        dico["histogram"] = (title_col_text, histo, col_text)
-                        
                     add_graphic(dico, name_graph)
             
                 else:
@@ -1192,14 +1263,10 @@ def analyze(upload_file):
 
             template_type = st.radio(
                     "Select your template",
-                    ["Normal", "Artic Vision", "Artic Vision WS"],
+                    ["Normal", "Artic Vision", "Artic Vision WS", "Astral Power 🔒"],
                     index=None,
                     horizontal = st.session_state.horizontal,
                     )
-            
-            normsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'norm_scsh.png')
-            avsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'av_scsh.png')
-            avwssch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'avws_scsh.png')
             
             if template_type == "Normal":
                 
@@ -1213,14 +1280,20 @@ def analyze(upload_file):
                 
                 st.image(avwssch_path)
                 
+            elif template_type == "Astral Power 🔒":
+                
+                # Blurred Picture
+                st.image(blurred_image)
+                
+                st.warning("Available in the Pro Version")
+                
             else:
                 st.warning("Select a template.")
 
-
-
-            # Input form for PDF
+            # Title PDF
             st.subheader("Generate your report")
-                           
+            
+            # Input 
             pdf_title = st.text_input("Report's Title")
             pdf_author = st.text_input("Author")
             pdf_company = st.text_input("Company")
@@ -1244,13 +1317,11 @@ def analyze(upload_file):
                 w, h = A4
                 
                 elements.append(Paragraph(pdf_title, styleT))
-                
                 elements.append(Spacer(1, 1*cm))
 
                 def paragraph(g):
                     
                     elems = []
-                    
                     elements.append(Spacer(1, 1*cm))
 
                     # Title
@@ -1286,9 +1357,6 @@ def analyze(upload_file):
                     if g.name in selection:
                     
                         elements += paragraph(g)
-                        
-                av_path = os.path.join(base_path, 'assets', 'Templates', 'artic_vision.png')
-                avws_path = os.path.join(base_path, 'assets', 'Templates', 'artic_vision_white_shape.png') 
                  
                 # Normal Template
                 if template_type == "Normal":
@@ -1427,3 +1495,4 @@ if upload_file is not None:
     
 
      
+
