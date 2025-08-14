@@ -25,7 +25,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
 from reportlab.lib.pagesizes import A4
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, PageBreak
 from reportlab.lib.utils import ImageReader
 
 # Streamlit
@@ -65,6 +65,9 @@ normsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'norm_scsh.png')
 avsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'av_scsh.png')
 avwssch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'avws_scsh.png')
 apsch_path = os.path.join(base_path, 'assets', 'Image_Temp', 'ap_scsh.png')
+
+# Building paths to tutorial video
+vid_path = os.path.join(base_path, 'assets', 'Tutorial', 'tuto.mp4')
 
 # Blurred image
 image = img.open(apsch_path)
@@ -912,8 +915,9 @@ def analyze(upload_file):
                         text_value2 = text_value2.decode("utf-8")
                     elif not isinstance(text_value2, str):
                         text_value2 = str(text_value2)
-
                     elems.append(Paragraph(text_value2, styleN))
+                    
+                    elems.append(PageBreak())
                     elems.append(Spacer(1, 2*cm))
 
                     return elems
@@ -1492,6 +1496,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
