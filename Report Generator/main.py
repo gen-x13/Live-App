@@ -893,6 +893,7 @@ def analyze(upload_file):
                 def paragraphe(l):
                     
                     elems = []
+                    x =+1
                     
                     elements.append(Spacer(1, 1*cm))
 
@@ -916,8 +917,11 @@ def analyze(upload_file):
                     elif not isinstance(text_value2, str):
                         text_value2 = str(text_value2)
                     elems.append(Paragraph(text_value2, styleN))
-                    
-                    elems.append(PageBreak())
+
+                    if x == (2, 4, 6, 8):
+                        elems.append(PageBreak())
+                        elems.append(Spacer(1, 2*cm))
+                        
                     elems.append(Spacer(1, 2*cm))
 
                     return elems
@@ -1496,6 +1500,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
