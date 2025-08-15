@@ -378,22 +378,23 @@ elif selected in ["Tutorial", "Tutoriel"]:
             st.text("")
                 
             st.subheader("▪ Step 2 : Language Selection")
-            st.markdown("There's only two languages to select : French reports or English ones.")
+            st.markdown("Select your language preference using the checkbox in the right top corner.")
             st.markdown("I may implement other languages or a new feature to automate it.")
             
             st.text("")
-            
+
             st.subheader("▪ Step 3 : Clean CSV Importation")
-            st.markdown("Drag and drop your clean dataset into the file uploader.")
+            st.markdown("Select the report page in the menu.")
+            st.markdown("Import your CSV. It must be clean to avoid potential issues.")
             st.markdown("Dataset with letters, special characters cannot be supported and used.")
+            st.markdown("Drag and drop your clean dataset into the file uploader.")
             st.caption("❗ In the PRO versions, you will have access to more features.")
-            
+
             st.text("")
             
             st.subheader("▪ Step 4 : Graphics creation")
             st.markdown("Select the columns you need for your report.")
             st.markdown("Use the cursor to select the values you need.")
-            st.markdown("Select your analysis, if you've only selected one column.")
             st.markdown("Select a chart.")
             st.markdown("Press the ‘Add graphic’ button as shown in the video after each graphic creation.")
             st.markdown("Then, select their order of apparition.")
@@ -453,14 +454,16 @@ elif selected in ["Tutorial", "Tutoriel"]:
             st.text("")
                 
             st.subheader("▪ Étape 2 : Choix de la langue")
-            st.markdown("Il n'y a que deux langues à sélectionner : les rapports en français ou en anglais.")
+            st.markdown("Sélectionnez votre langue préférée à l'aide de la case à cocher dans le coin supérieur droit.")
             st.markdown("Il se peut que j'ajoute d'autres langages ou une nouvelle fonctionnalité pour l'automatiser.")
             
             st.text("")
             
             st.subheader("▪ Étape 3 : Importation de fichiers CSV propre")
-            st.markdown("Glissez-déposez votre jeu de données propre dans le chargeur de fichiers.")
-            st.markdown("Les jeux de données contenant des lettres et des caractères spéciaux ne peuvent être pris en charge et utilisés.")
+            st.markdown("Sélectionnez la page du rapport dans le menu.")
+            st.markdown(" Importez votre fichier CSV. Il doit être propre pour éviter tout problème potentiel.")
+            st.markdown(" Les ensembles de données contenant des lettres ou des caractères spéciaux ne peuvent pas être pris en charge ni utilisés.")
+            st.markdown(" Glissez-déposez votre ensemble de données propre dans le module de téléchargement de fichiers. ")
             st.caption("❗ Dans les versions PRO, vous aurez accès à davantage de fonctionnalités.")
             
             st.text("")
@@ -468,7 +471,6 @@ elif selected in ["Tutorial", "Tutoriel"]:
             st.subheader("▪ Étape 4 : Création de graphiques")
             st.markdown("Sélectionnez les colonnes dont vous avez besoin dans votre rapport.")
             st.markdown("Sélectionnez avec le curseur, les valeurs dont vous avez besoin.")
-            st.markdown("Sélectionnez votre analyse, si vous n'avez sélectionné qu'une seule colonne.")
             st.markdown("Sélectionnez un graphique.")
             st.markdown("Après chaque sélection, appuyez sur le bouton « Ajouter un graphique » comme sur la vidéo.")
             st.markdown("Sélectionnez ensuite leur ordre d'apparition.")
@@ -1500,6 +1502,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
