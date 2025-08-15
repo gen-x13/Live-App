@@ -360,7 +360,7 @@ elif selected in ["Tutorial", "Tutoriel"]:
         st.divider()
         
         # Video
-        st.video("https://youtu.be/Db0x94cuEFo")
+        st.video(vid_path)
         
         st.divider()
         
@@ -433,7 +433,7 @@ elif selected in ["Tutorial", "Tutoriel"]:
         st.divider()
         
         # Video
-        st.video("https://youtu.be/Db0x94cuEFo")
+        st.video(vid_path)
         
         st.divider()
         
@@ -1500,6 +1500,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
