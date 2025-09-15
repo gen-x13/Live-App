@@ -69,6 +69,10 @@ This project is licensed under the MIT License — see the [LICENSE](./LICENSE) 
 ◼ Added a template teasing the Pro Version
 ◼ Bilingual Menu
 
+**Version 1.1** | *15/09/25* :
+
+◼ Adding discord widget
+
 ---
 
 ### **💜 A Reminder:**
