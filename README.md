@@ -71,7 +71,7 @@ This project is licensed under the MIT License — see the [LICENSE](./LICENSE) 
 
 **Version 1.1** | *15/09/25* :
 
-◼ Adding discord widget
+◼ Added discord widget
 
 ---
 
