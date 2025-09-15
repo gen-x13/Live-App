@@ -344,7 +344,17 @@ if selected in ["Home", "Accueil"]:
     </svg>
   </a>
 </div>
-''', height=200)
+<div style="display: flex; justify-content: center;">
+  <iframe 
+    src="https://discord.com/widget?id=1416944704012157000&theme=dark" 
+    width="350" 
+    height="500" 
+    allowtransparency="true" 
+    frameborder="0" 
+    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+  </iframe>
+</div>
+''', height=750)
 
 
 elif selected in ["Tutorial", "Tutoriel"]:
@@ -1502,6 +1512,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
