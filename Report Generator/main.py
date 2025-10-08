@@ -567,6 +567,17 @@ elif selected in ["Purchase", "Achat"]:
         st.caption('The PRO beta version will come soon.')
         
         st.text("")
+
+        iframe_code = """
+        <div style="border: 1px solid #ccc; padding: 10px;">
+            <iframe
+                src="https://solvereportbeta.carrd.co?embed=true"
+                style="height: 450px; width: 100%; border: none;"
+            ></iframe>
+        </div>
+        """
+        
+        st.markdown(iframe_code, unsafe_allow_html=True)
     
     elif exp == "🇫🇷":
         
@@ -1515,6 +1526,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
