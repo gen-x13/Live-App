@@ -568,11 +568,13 @@ elif selected in ["Purchase", "Achat"]:
         
         st.text("")
 
+        st.subheader('You can find here the site to take a spot for the beta now!')
+
         iframe_code = """
-        <div style="border: 1px solid #ccc; padding: 10px;">
+        <div>
             <iframe
                 src="https://solvereportbeta.carrd.co?embed=true"
-                style="height: 450px; width: 100%; border: none;"
+                style="height: 450px; width: 450px; border: none;"
             ></iframe>
         </div>
         """
@@ -1526,6 +1528,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
