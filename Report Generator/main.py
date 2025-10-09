@@ -558,19 +558,7 @@ elif selected in ["Report", "Rapport"]:
 # Purchase Page
 elif selected in ["Purchase", "Achat"]:
 
-    if exp == "🇬🇧":
-    
-        st.title("Thank you for testing this free version")
-        st.text("")
-           
-        st.markdown('Insight and feedback about this free version are welcomed on my socials.')
-        st.caption('The PRO beta version will come soon.')
-        
-        st.text("")
-
-        st.subheader('You now can find here the site to take a spot for the beta now!')
-
-        st.markdown("""
+    st.markdown("""
             <style>
                 /* Élargir la largeur max du contenu Streamlit */
                 .main .block-container {
@@ -589,6 +577,21 @@ elif selected in ["Purchase", "Achat"]:
             </style>
         """, unsafe_allow_html=True)
 
+
+    if exp == "🇬🇧":
+        
+    
+        st.title("Thank you for testing this free version")
+        st.text("")
+           
+        st.markdown('Insight and feedback about this free version are welcomed on my socials.')
+        st.caption('The PRO beta version will come soon.')
+        
+        st.text("")
+
+        st.subheader('You now can find here the site to take a spot for the beta now!')
+
+        
         iframe_code = """
         <div style="width: 1000px; margin: 0 auto; padding: 10px;">
             <iframe
@@ -1547,6 +1550,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
