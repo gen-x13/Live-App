@@ -571,10 +571,10 @@ elif selected in ["Purchase", "Achat"]:
         st.subheader('You now can find here the site to take a spot for the beta now!')
 
         iframe_code = """
-        <div>
+        <div style="width: 1000px; margin: 0 auto; border: 1px solid #ccc; padding: 10px;">
             <iframe
-                src="https://solvereportbeta.carrd.co?embed=true"
-                style="height: 450px; width: 1000px; border: none;"
+                src="https://30days.streamlit.app?embed=true"
+                style="height: 450px; width: 100%; border: none;"
             ></iframe>
         </div>
         """
@@ -1528,6 +1528,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
