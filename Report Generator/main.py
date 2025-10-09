@@ -558,30 +558,6 @@ elif selected in ["Report", "Rapport"]:
 # Purchase Page
 elif selected in ["Purchase", "Achat"]:
 
-    st.markdown("""
-            <style>
-                /* Élargir la largeur max du contenu Streamlit */
-                .main .block-container {
-                    max-width: 1200px;
-                    padding-left: 2rem;
-                    padding-right: 2rem;
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 2rem;
-                    margin-bottom: 2rem;
-                }
-        
-                /* Centrer le conteneur du iframe */
-                .iframe-wrapper {
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 2rem;
-                    margin-bottom: 2rem;
-                }
-            </style>
-        """, unsafe_allow_html=True)
-
-
     if exp == "🇬🇧":
         
     
@@ -595,12 +571,11 @@ elif selected in ["Purchase", "Achat"]:
 
         st.subheader('You now can find here the site to take a spot for the beta now!')
 
-        
         iframe_code = """
-        <div style="width: 1000px; margin: 0 auto; padding: 10px;">
+        <div>
             <iframe
                 src="https://solvereportbeta.carrd.co?embed=true"
-                style="height: 450px; width: 100%; border: none;"
+                style="height: 450px; width: 800px; border: none;"
             ></iframe>
         </div>
         """
@@ -1554,6 +1529,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
