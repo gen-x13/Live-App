@@ -565,6 +565,10 @@ elif selected in ["Purchase", "Achat"]:
                     max-width: 1200px;
                     padding-left: 2rem;
                     padding-right: 2rem;
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 2rem;
+                    margin-bottom: 2rem;
                 }
         
                 /* Centrer le conteneur du iframe */
@@ -1550,6 +1554,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
