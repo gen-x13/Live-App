@@ -563,18 +563,18 @@ elif selected in ["Purchase", "Achat"]:
         st.title("Thank you for testing this free version")
         st.text("")
            
-        st.header('Insight and feedback about this free version are welcomed on my socials.')
+        st.markdown('Insight and feedback about this free version are welcomed on my socials.')
         st.caption('The PRO beta version will come soon.')
         
         st.text("")
 
-        st.subheader('You can find here the site to take a spot for the beta now!')
+        st.subheader('You now can find here the site to take a spot for the beta now!')
 
         iframe_code = """
         <div>
             <iframe
                 src="https://solvereportbeta.carrd.co?embed=true"
-                style="height: 450px; width: 450px; border: none;"
+                style="height: 450px; width: 1000px; border: none;"
             ></iframe>
         </div>
         """
@@ -1528,6 +1528,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
