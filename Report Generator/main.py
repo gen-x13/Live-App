@@ -561,11 +561,11 @@ elif selected in ["Purchase", "Achat"]:
     if exp == "🇬🇧":
         
     
-        st.title("Thank you for testing this free version")
+        st.title("Thank you for testing this prototype!")
         st.text("")
            
         st.markdown('Insight and feedback about this free version are welcomed on my socials.')
-        st.caption('The PRO beta version will come soon.')
+        st.caption('The Beta version will come soon.')
         
         st.text("")
 
@@ -584,13 +584,26 @@ elif selected in ["Purchase", "Achat"]:
     
     elif exp == "🇫🇷":
         
-        st.title("Merci d'avoir testé la version gratuite.")
+        st.title("Merci d'avoir testé la version prototype.")
         st.text("")
            
-        st.header('Les avis et les commentaires sur cette version gratuite sont les bienvenus sur mes réseaux sociaux.')
-        st.caption('La version bêta PRO arrive bientôt.')
+        st.header('Les avis et les commentaires sur cette version sont les bienvenus sur mes réseaux sociaux.')
+        st.caption('La version Beta arrive bientôt.')
         
         st.text("")
+
+        st.subheader('Vous pouvez désormais trouver ici le site pour vous inscrire à la bêta dès maintenant!')
+
+        iframe_code = """
+        <div>
+            <iframe
+                src="https://solvereportbeta.carrd.co?embed=true"
+                style="height: 450px; width: 800px; border: none;"
+            ></iframe>
+        </div>
+        """
+        
+        st.markdown(iframe_code, unsafe_allow_html=True)
 
 
 # Analysis Function
@@ -1529,6 +1542,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
