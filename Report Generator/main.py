@@ -590,9 +590,9 @@ elif selected in ["Purchase", "Achat"]:
         """, unsafe_allow_html=True)
 
         iframe_code = """
-        <div style="width: 1000px; margin: 0 auto; border: 1px solid #ccc; padding: 10px;">
+        <div style="width: 1000px; margin: 0 auto; padding: 10px;">
             <iframe
-                src="https://30days.streamlit.app?embed=true"
+                src="https://solvereportbeta.carrd.co?embed=true"
                 style="height: 450px; width: 100%; border: none;"
             ></iframe>
         </div>
@@ -1547,6 +1547,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
