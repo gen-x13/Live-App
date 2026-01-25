@@ -49,7 +49,7 @@ if "uploader_key" not in st.session_state:
 upload_file = None # Initialization
 
 # CSS Background
-css_path = os.path.join(os.path.dirname(__file__), 'assets', 'wave.css')
+css_path = os.path.join(os.path.dirname(__file__), 'files', 'wave.css')
 with open(css_path) as f:
     css = f.read()
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
@@ -1544,6 +1544,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
