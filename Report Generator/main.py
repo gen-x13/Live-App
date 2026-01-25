@@ -569,7 +569,8 @@ elif selected in ["Purchase", "Achat"]:
         
         st.text("")
 
-        st.subheader('You now can find here the site to take a spot for the beta now!')
+        st.subheader('Check out the landing page!')
+        st.caption('The beta might not be released.')
 
         iframe_code = """
         <div>
@@ -592,7 +593,8 @@ elif selected in ["Purchase", "Achat"]:
         
         st.text("")
 
-        st.subheader('Vous pouvez désormais trouver ici le site pour vous inscrire à la bêta dès maintenant!')
+        st.subheader('Découvrez la landing page!')
+        st.caption('La version bêta pourrait ne pas être commercialisée.')
 
         iframe_code = """
         <div>
@@ -1542,6 +1544,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
