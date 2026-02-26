@@ -345,16 +345,6 @@ if selected in ["Home", "Accueil"]:
         </svg>
       </a>
     </div>
-    <div>
-        <iframe 
-          src="https://discord.com/widget?id=1416944704012157000&theme=dark" 
-          width="350" 
-          height="500" 
-          allowtransparency="true" 
-          frameborder="0" 
-          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-        </iframe>
-      </div>
 
 </div>
 ''', height=550)
@@ -570,18 +560,7 @@ elif selected in ["Purchase", "Achat"]:
         st.text("")
 
         st.subheader('Check out the landing page!')
-        st.caption('The beta might not be released.')
-
-        iframe_code = """
-        <div>
-            <iframe
-                src="https://solvereportbeta.carrd.co?embed=true"
-                style="height: 450px; width: 800px; border: none;"
-            ></iframe>
-        </div>
-        """
-        
-        st.markdown(iframe_code, unsafe_allow_html=True)
+        st.caption('The landing page is under construction.')
     
     elif exp == "🇫🇷":
         
@@ -594,18 +573,7 @@ elif selected in ["Purchase", "Achat"]:
         st.text("")
 
         st.subheader('Découvrez la landing page!')
-        st.caption('La version bêta pourrait ne pas être commercialisée.')
-
-        iframe_code = """
-        <div>
-            <iframe
-                src="https://solvereportbeta.carrd.co?embed=true"
-                style="height: 450px; width: 800px; border: none;"
-            ></iframe>
-        </div>
-        """
-        
-        st.markdown(iframe_code, unsafe_allow_html=True)
+        st.caption('La landing page est en travaux.')
 
 
 # Analysis Function
@@ -1544,6 +1512,7 @@ if upload_file is not None:
     
 
      
+
 
 
 
