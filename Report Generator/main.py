@@ -274,7 +274,7 @@ if selected in ["Home", "Accueil"]:
         
         # English Version
         
-        st.title("SolveReport Free")
+        st.title("SolveReport Prototype")
         
         st.subheader("Your power, your report, your solution !")
         st.text("")
@@ -299,7 +299,7 @@ if selected in ["Home", "Accueil"]:
        
         # French Version
         
-        st.title("SolveReport Gratuit")
+        st.title("SolveReport Prototype")
         
         st.subheader("Votre pouvoir, votre rapport, votre solution !")
         st.text("")
