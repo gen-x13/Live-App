@@ -118,9 +118,9 @@ with st.sidebar:
             )
         
         # Affichage des statistiques avant nettoyage (pour transparence)
-        with st.expander("📊 État actuel des données"):
+        with st.expander("État actuel des données"):
             session_keys = len(st.session_state.keys())
-            st.write(f"🔑 Clés en session : {session_keys}")
+            st.write(f"Clés en session : {session_keys}")
             
             if session_keys > 0:
                 st.write("**Clés présentes :**")
@@ -130,20 +130,20 @@ with st.sidebar:
                     st.write(f"- `{key}`")
             
             # Estimation de la taille des caches
-            st.write("📦 Caches Streamlit actifs")
+            st.write("Caches Streamlit actifs")
         
         # Bouton avec confirmation et feedback détaillé
-        if st.button("🗑️ Clear all data", type="secondary"):
+        if st.button("Nettoyer les données", type="secondary"):
             if 'confirm_clear' not in st.session_state:
                 st.session_state.confirm_clear = True
-                st.warning("⚠️ **Confirmation requise**\n\nCela supprimera :\n- Toutes les variables de session\n- Le cache des données\n- Le cache des ressources\n\nCliquez à nouveau pour confirmer")
+                st.warning("**Confirmation requise**\n\nCela supprimera :\n- Toutes les variables de session\n- Le cache des données\n- Le cache des ressources\n\nCliquez à nouveau pour confirmer")
             else:
                 # Collecte des informations avant suppression
                 keys_before = list(st.session_state.keys())
                 keys_count_before = len(keys_before)
                 
                 # Nettoyage avec feedback en temps réel
-                with st.spinner("🧹 Nettoyage en cours..."):
+                with st.spinner("Nettoyage en cours..."):
                     time.sleep(0.5)  # Pour que l'utilisateur voie le spinner
                     
                     # 1. Suppression des clés de session
@@ -162,24 +162,24 @@ with st.sidebar:
                         del st.session_state['confirm_clear']
                 
                 # Rapport détaillé du nettoyage
-                st.success("✅ **Nettoyage terminé avec succès !**")
+                st.success("**Nettoyage terminé avec succès !**")
                 
-                with st.expander("📋 Rapport de nettoyage", expanded=True):
-                    st.write(f"**🔑 Variables de session supprimées : {len(keys_deleted)}**")
+                with st.expander("Rapport de nettoyage", expanded=True):
+                    st.write(f"**Variables de session supprimées : {len(keys_deleted)}**")
                     if keys_deleted:
                         for key in keys_deleted:
                             st.write(f"✓ `{key}`")
                     
-                    st.write("**📦 Caches nettoyés :**")
+                    st.write("**Caches nettoyés :**")
                     st.write("✓ Cache des données")
                     st.write("✓ Cache des ressources")
                     
                     # Vérification post-nettoyage
                     current_keys = len(st.session_state.keys())
-                    st.write(f"**🎯 État final : {current_keys} clés restantes**")
+                    st.write(f"**État final : {current_keys} clés restantes**")
                     
                     if current_keys == 0:
-                        st.success("🎉 Session complètement nettoyée !")
+                        st.success("Session complètement nettoyée !")
                     else:
                         st.info(f"ℹ️ {current_keys} clés système conservées")
                 
@@ -198,9 +198,9 @@ with st.sidebar:
             )
         
         # Affichage des statistiques avant nettoyage (pour transparence)
-        with st.expander("📊 Current data status"):
+        with st.expander("Current data status"):
             session_keys = len(st.session_state.keys())
-            st.write(f"🔑 Session keys : {session_keys}")
+            st.write(f"Session keys : {session_keys}")
             
             if session_keys > 0:
                 st.write("**Present keys :**")
@@ -210,20 +210,20 @@ with st.sidebar:
                     st.write(f"- `{key}`")
             
             # Estimation de la taille des caches
-            st.write("📦 Active Streamlit caches")
+            st.write("Active Streamlit caches")
         
         # Bouton avec confirmation et feedback détaillé
-        if st.button("🗑️ Clear all data", type="secondary"):
+        if st.button("Clear all data", type="secondary"):
             if 'confirm_clear' not in st.session_state:
                 st.session_state.confirm_clear = True
-                st.warning("⚠️ **Confirmation required**\n\nThis will delete:\n- All session variables\n- Data cache\n- Resource cache\n\nClick again to confirm")
+                st.warning("**Confirmation required**\n\nThis will delete:\n- All session variables\n- Data cache\n- Resource cache\n\nClick again to confirm")
             else:
                 # Collecte des informations avant suppression
                 keys_before = list(st.session_state.keys())
                 keys_count_before = len(keys_before)
                 
                 # Nettoyage avec feedback en temps réel
-                with st.spinner("🧹 Cleaning in progress..."):
+                with st.spinner("Cleaning in progress..."):
                     time.sleep(0.5)  # Pour que l'utilisateur voie le spinner
                     
                     # 1. Suppression des clés de session
@@ -242,24 +242,24 @@ with st.sidebar:
                         del st.session_state['confirm_clear']
                 
                 # Rapport détaillé du nettoyage
-                st.success("✅ **Cleaning successfully completed!**")
+                st.success("**Cleaning successfully completed!**")
                 
-                with st.expander("📋 Cleaning report", expanded=True):
-                    st.write(f"**🔑 Session variables deleted : {len(keys_deleted)}**")
+                with st.expander("Cleaning report", expanded=True):
+                    st.write(f"**Session variables deleted : {len(keys_deleted)}**")
                     if keys_deleted:
                         for key in keys_deleted:
                             st.write(f"✓ `{key}`")
                     
-                    st.write("**📦 Cleaned caches :**")
+                    st.write("**Cleaned caches :**")
                     st.write("✓ Data cache")
                     st.write("✓ Resource cache")
                     
                     # Vérification post-nettoyage
                     current_keys = len(st.session_state.keys())
-                    st.write(f"**🎯 Final status: {current_keys} remaining keys**")
+                    st.write(f"**Final status: {current_keys} remaining keys**")
                     
                     if current_keys == 0:
-                        st.success("🎉 Session completely cleaned up!")
+                        st.success("Session completely cleaned up!")
                     else:
                         st.info(f"ℹ️ {current_keys} system keys stored")
                 
